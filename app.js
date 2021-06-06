@@ -4,6 +4,7 @@ const cors = require('cors');
 const boolParser = require('express-query-boolean');
 const helmet = require('helmet');
 const limiter = require('./helpers/limiter');
+const path = require('path');
 
 const { HttpCode } = require('./helpers/constants');
 
@@ -15,6 +16,14 @@ const app = express();
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(helmet());
+
+require('dotenv').config();
+const PUBLIC_DIR = process.env.PUBLIC_DIR;
+const AVATARS_OF_USERS = process.env.AVATARS_OF_USERS;
+
+app.use(express.static(path.join(__dirname, PUBLIC_DIR, AVATARS_OF_USERS)));
+app.use(logger(formatsLogger));
+
 app.use(limiter);
 app.use(logger(formatsLogger));
 app.use(cors());
