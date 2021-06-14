@@ -29,11 +29,21 @@ const updateSubscription = async (id, body) => {
   return result;
 };
 
+const getUserByVerifyToken = async token => {
+  return await User.findOne({ verifyToken: token });
+};
+
+const updateVerifyToken = async (id, verify, token) => {
+  return await User.findByIdAndUpdate(id, { verify, verifyToken: token });
+};
+
 module.exports = {
   findById,
   findByEmail,
   create,
   updateToken,
   updateSubscription,
-  updateAvatar
+  updateAvatar,
+  getUserByVerifyToken,
+  updateVerifyToken
 };
