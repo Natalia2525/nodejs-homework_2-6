@@ -11,6 +11,8 @@ const guard = require('../../../helpers/guard');
 const ctrl = require('../../../controllers/users');
 
 router.post('/signup', validateSignup, ctrl.signup);
+router.get('/verify/:verificationToken', ctrl.verify);
+router.post('/verify', ctrl.repeatSendEmailVerify);
 router.post('/login', validateLogin, ctrl.login);
 router.post('/logout', guard, ctrl.logout);
 router.get('/current', guard, ctrl.current);
